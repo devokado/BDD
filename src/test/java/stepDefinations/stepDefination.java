@@ -22,17 +22,24 @@ public class stepDefination {
         //code to login
     	System.out.println("Logged in success");
     }
+    
+    @When("^User login into application with \"([^\"]*)\" and password \"([^\"]*)\"$")
+    public void user_login_into_application_with_something_and_password_something(String strArg1, String strArg2) throws Throwable {
+       
+    	System.out.println(strArg1);
+    	System.out.println(strArg2);
+    }
+
 
     @Then("^Home page is populated$")
     public void home_page_is_populated() throws Throwable {
        //home page validation
     	System.out.println("Validated home page");
     }
-
-    @And("^Cards are displayed$")
-    public void cards_are_displayed() throws Throwable {
-       //validation the cards
-    	System.out.println("Validated cards");
+    @Then("^Cards displayed are \"([^\"]*)\"$")
+    public void cards_displayed_are(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+    	System.out.println(arg1);
     }
 
 }
