@@ -15,6 +15,24 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 public class stepDefination {
 
+	@Given("^validate the browser$")
+	public void validate_the_browser() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	  System.out.println("deciding the browser to open");
+	}
+
+	@When("^Browser is triggered$")
+	public void browser_is_triggered() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    System.out.println("browser is triggered");
+	}
+
+	@Then("^check if browser is displayed$")
+	public void check_if_browser_is_started() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	   System.out.println("check if browser is displayed");
+	}
+	
 	@Given("^User is on NetBanking landing page$")
 	public void user_is_on_netbanking_landing_page() throws Throwable {
 		// code to navigate to login url
