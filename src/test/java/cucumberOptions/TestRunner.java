@@ -9,7 +9,10 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/java/features",
 		glue = "stepDefinations",
-		tags = "@PortalTest"
+		tags = "@PortalTest",dryRun = true,monochrome = true,strict = true,
+		plugin = {"pretty","html:target/cucumber"
+				,"json:target/cucumber.json",
+				"junit:target/cucumber.xml"}
 		)
 public class TestRunner {
 
