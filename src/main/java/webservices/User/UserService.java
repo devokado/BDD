@@ -11,22 +11,23 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @Server
 public class UserService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-	
+
 	private final UserRepository userRepository;
-	
+
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
+
 	public User saveUser(User user) {
-		
-		if(logger.isInfoEnabled()) {
+
+		if (logger.isInfoEnabled()) {
 			logger.info("User is saved with details {}", user.toString());
 		}
 		return this.userRepository.save(user);
 	}
+
 	public List<User> saveUsers(List<User> users) {
 
 		if (logger.isInfoEnabled()) {
@@ -34,6 +35,7 @@ public class UserService {
 		}
 		return this.userRepository.saveAll(users);
 	}
+
 	public Optional<User> getUser(Integer Id) {
 
 		if (logger.isInfoEnabled()) {
@@ -47,27 +49,47 @@ public class UserService {
 
 		return this.userRepository.findAll();
 	}
-	
+
 	public void deleteUser(Integer id) {
-	
+
 		this.userRepository.deleteById(id);
 	}
-	public Optional<User> putUser(User user,Integer id) {
-		
+
+	public Optional<User> putUser(User user, Integer id) {
+
 		if (logger.isInfoEnabled()) {
 			logger.info("Updating User with Id {}", id);
 		}
 		Optional<User> userOptional = this.userRepository.findById(id);
 		if (!userOptional.isPresent())
 			return null;
-	
+
 		user.setId(id);
-		
+
 		userRepository.save(user);
 
 		return userRepository.findById(id);
-		
+
 	}
-	
-	
+
+	public Optional<User> PatchUser(User user, int id) {
+
+		if (logger.isInfoEnabled()) {
+			logger.info("Updating User with Id {}", id);
+		}
+		Optional<User> updatedUser = this.userRepository.findById(id);
+
+		if (updatedUser.isPresent()) {
+			if (user.getName() != null) {
+				updatedUser.get().setName(user.getName());
+			}
+			if (user.getPassword() != null) {
+				updatedUser.get().setPassword(user.getPassword());
+			}
+			userRepository.save(updatedUser.get());
+			return updatedUser;
+		}
+		return null;
+	}
+
 }

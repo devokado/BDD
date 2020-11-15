@@ -14,6 +14,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -90,6 +91,18 @@ public class UserStepDefinitionTest  extends AbstractSpringConfigurationTest {
 		String url = buildUrl(HOST, PORT, path, uriVariables);
 		HttpEntity<?> requestEntity = new HttpEntity<>(uriVariables, getDefaultHttpHeaders());
 		response = invokeRESTCall(url, HttpMethod.PUT, requestEntity);
+		
+	}
+	
+	@When("^the client calls PaTCH \"([^\"]*)\" with user id as (\\d+) and user name \"([^\"]*)\"$")
+	public void the_client_calls_PaTCH_with_user_id_as_and_user_name(String path, int id, String name) throws Throwable {
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("id", String.valueOf(id));
+		uriVariables.put("name", name);
+		String url = buildUrl(HOST, PORT, path, uriVariables);
+		HttpEntity<?> requestEntity = new HttpEntity<>(uriVariables, getDefaultHttpHeaders());
+		RestTemplate restTemplate = new RestTemplate();
+		response = invokeRESTCall(url, HttpMethod.PATCH, requestEntity);
 		
 	}
 

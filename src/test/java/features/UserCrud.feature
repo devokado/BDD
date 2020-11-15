@@ -20,11 +20,13 @@ Scenario: delete the user with user id
 	Then the client receives status code of 204 
 	And the response contain GET "/users/{id}" with user id as 1 is 401 
 	
-Scenario: Update the user with user id 
+Scenario: Full update the user with user id 
 	When the client calls PUT "/users/{id}" with user id as 1 and user name "jack" and user password "123"
 	Then the client receives status code of 200 
 	And the response contains user name "jack" 
 	
-	
-	
+Scenario: Partial update the user with user id 
+	When the client calls PaTCH "/users/{id}" with user id as 1 and user name "jack"
+	Then the client receives status code of 200 
+	And the response contains user name "jack" 
 	
