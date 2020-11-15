@@ -49,7 +49,7 @@ public class UserService {
 	}
 	
 	public void deleteUser(Integer id) {
-		
+	
 		this.userRepository.deleteById(id);
 	}
 	public Optional<User> putUser(User user,Integer id) {

@@ -36,7 +36,7 @@ public class UserStepDefinitionTest  extends AbstractSpringConfigurationTest {
 	public void the_user_with_user_id_and_user_name_and_user_password(int id, String name, String password)
 	{
 		if (logger.isInfoEnabled()) {
-			logger.info("User to be saved with user id {} and user name {} user password {}", name, id, password);
+			logger.info("User to be saved with user id {} and user name {} user password {}", id,name, password);
 		}
 		this.UserName =name;
 		this.UserId = id;
@@ -44,20 +44,6 @@ public class UserStepDefinitionTest  extends AbstractSpringConfigurationTest {
 
 	}
 	
-	@Given("^the user saved with user id (\\d+) and user name \"([^\"]*)\" and user password \"([^\"]*)\"$")
-	public void the_user_saved_with_user_id_and_user_name_and_user_password(int id, String name, String password) throws Throwable {
-		String url = buildUrl(HOST, PORT, "/users");
-		logger.info("url {}", url);
-		Map<String, Object> requestMap = new HashMap<>();
-		requestMap.put("id", id);
-		requestMap.put("name", name);
-		requestMap.put("password",password);
-		HttpEntity<?> requestEntity = new HttpEntity<>(requestMap, getDefaultHttpHeaders());
-		response = invokeRESTCall(url, HttpMethod.POST, requestEntity);
-
-
-	}
-
 	@When("^the client calls \"([^\"]*)\" with the given details$")
 	public void the_client_calls_with_the_given_details(String path) throws Throwable {
 		
@@ -83,6 +69,29 @@ public class UserStepDefinitionTest  extends AbstractSpringConfigurationTest {
 		logger.info("url {}", url);
 		response = invokeRESTCall(url, HttpMethod.GET, null);
 	}
+	
+	@When("^the client calls DELETE \"([^\"]*)\" with user id as (\\d+)$")
+	public void the_client_calls_DELETE_with_user_id_as(String path, int id) throws Throwable {
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("id", String.valueOf(id));
+		String url = buildUrl(HOST, PORT, path, uriVariables);
+		logger.info("url {}", url);
+		response = invokeRESTCall(url, HttpMethod.DELETE, null);
+		
+	   
+	}
+	
+	@When("^the client calls PUT \"([^\"]*)\" with user id as (\\d+) and user name \"([^\"]*)\" and user password \"([^\"]*)\"$")
+	public void the_client_calls_PUT_with_user_id_as_and_user_name_and_user_password(String path, int id, String name, String password) throws Throwable {
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("id", String.valueOf(id));
+		uriVariables.put("name", name);
+		uriVariables.put("password",password);
+		String url = buildUrl(HOST, PORT, path, uriVariables);
+		HttpEntity<?> requestEntity = new HttpEntity<>(uriVariables, getDefaultHttpHeaders());
+		response = invokeRESTCall(url, HttpMethod.PUT, requestEntity);
+		
+	}
 
 
 	@Then("^the client receives status code of (\\d+)$")
@@ -105,8 +114,19 @@ public class UserStepDefinitionTest  extends AbstractSpringConfigurationTest {
 		}
 
 	}
+	@Then("^the response contain GET \"([^\"]*)\" with user id as (\\d+) is (\\d+)$")
+	public void the_response_contain_GET_with_user_id_as_is(String path, int id, int statusCode) throws Throwable {
+		Map<String, String> uriVariables = new HashMap<>();
+		uriVariables.put("id", String.valueOf(id));
+		String url = buildUrl(HOST, PORT, path, uriVariables);
+		logger.info("url {}", url);
+		response = invokeRESTCall(url, HttpMethod.GET, null);
+		if (response != null && response.getStatusCode().is2xxSuccessful()) {
+			assertEquals(statusCode, response.getStatusCode().value());
+		}
+		
+	}
 	
 	
-
 
 }

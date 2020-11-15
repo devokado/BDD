@@ -40,6 +40,7 @@ public class UserController {
 	private final UserService userService;
 
 	public UserController(UserService userService) {
+		super();
 		this.userService = userService;
 	}
 
@@ -74,7 +75,6 @@ public class UserController {
 	public void DeleteUser(@PathVariable int id) {
 
 		Assert.notNull(id, "UserId cannot be empty");
-
 		userService.deleteUser(id);
 	}
 
@@ -82,6 +82,7 @@ public class UserController {
 	public Optional<User> updateUser(@RequestBody User user, @PathVariable int id) {
 
 		Assert.notNull(id, "UserId cannot be empty");
+
 		return userService.putUser(user, id);
 
 	}
