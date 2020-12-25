@@ -78,9 +78,16 @@ to file Step in stepDefinations folder
 
 ```
 -----------------------------------
+
 <b>step 5</b> </br>
-copy file </br><b>https://github.com/devokado/BDD/blob/master/src/test/java/stepDefinations/AbstractSpringConfigurationTest.java</b></br>
+Copy file </br><b>https://github.com/devokado/BDD/blob/master/src/test/java/stepDefinations/AbstractSpringConfigurationTest.java</b></br>
 to stepDefinations folder
 
 -----------------------------------
+
+<b>step 6</b> </br>
+Similar to file
+</br><b>https://github.com/devokado/BDD/blob/master/src/test/java/stepDefinations/UserStepDefinitionTest.java</b></br>
+Complete the scenarios
+
 
