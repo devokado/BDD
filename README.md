@@ -88,6 +88,6 @@ to stepDefinations folder
 <b>step 6</b> </br>
 Similar to file
 </br><b>https://github.com/devokado/BDD/blob/master/src/test/java/stepDefinations/UserStepDefinitionTest.java</b></br>
-Complete the scenarios
+Complete the steps
 
 
